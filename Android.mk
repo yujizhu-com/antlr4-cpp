@@ -147,25 +147,29 @@ LOCAL_SRC_FILES 		:= 	src/ANTLRErrorListener.cpp \
 							src/tree/xpath/XPathWildcardElement.cpp \
 
 
-LOCAL_C_INCLUDES 		:= 	src \
-							src/atn \
-							src/dfa \
-							src/internal \
-							src/misc \
-							src/support \
-							src/tree \
-							src/tree/pattern \
-							src/tree/xpath \
+LOCAL_C_INCLUDES 		:= 	$(LOCAL_PATH)/. \
+							$(LOCAL_PATH)/src \
+							$(LOCAL_PATH)/src/atn \
+							$(LOCAL_PATH)/src/dfa \
+							$(LOCAL_PATH)/src/internal \
+							$(LOCAL_PATH)/src/misc \
+							$(LOCAL_PATH)/src/support \
+							$(LOCAL_PATH)/src/tree \
+							$(LOCAL_PATH)/src/tree/pattern \
+							$(LOCAL_PATH)/src/tree/xpath \
 							
-LOCAL_EXPORT_C_INCLUDES :=  src \
-							src/atn \
-							src/dfa \
-							src/internal \
-							src/misc \
-							src/support \
-							src/tree \
-							src/tree/pattern \
-							src/tree/xpath \
+LOCAL_EXPORT_C_INCLUDES :=  $(LOCAL_PATH)/. \
+							$(LOCAL_PATH)/src \
+							$(LOCAL_PATH)/src/atn \
+							$(LOCAL_PATH)/src/dfa \
+							$(LOCAL_PATH)/src/internal \
+							$(LOCAL_PATH)/src/misc \
+							$(LOCAL_PATH)/src/support \
+							$(LOCAL_PATH)/src/tree \
+							$(LOCAL_PATH)/src/tree/pattern \
+							$(LOCAL_PATH)/src/tree/xpath \
+
+ LOCAL_CFLAGS   +=  -fexceptions
 
 include $(BUILD_STATIC_LIBRARY)
 
