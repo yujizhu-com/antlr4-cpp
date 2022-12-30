@@ -33,10 +33,10 @@ using namespace antlr4::misc;
 PredictionContextMergeCache::PredictionContextMergeCache(
     const PredictionContextMergeCacheOptions &options) : _options(options) {}
 
-Ref<const PredictionContext> PredictionContextMergeCache::put(
-    const Ref<const PredictionContext> &key1,
-    const Ref<const PredictionContext> &key2,
-    Ref<const PredictionContext> value) {
+CppRef<const PredictionContext> PredictionContextMergeCache::put(
+    const CppRef<const PredictionContext> &key1,
+    const CppRef<const PredictionContext> &key2,
+    CppRef<const PredictionContext> value) {
   assert(key1);
   assert(key2);
 
@@ -66,9 +66,9 @@ Ref<const PredictionContext> PredictionContextMergeCache::put(
   return existing->second->value;
 }
 
-Ref<const PredictionContext> PredictionContextMergeCache::get(
-    const Ref<const PredictionContext> &key1,
-    const Ref<const PredictionContext> &key2) const {
+CppRef<const PredictionContext> PredictionContextMergeCache::get(
+    const CppRef<const PredictionContext> &key1,
+    const CppRef<const PredictionContext> &key2) const {
   assert(key1);
   assert(key2);
 

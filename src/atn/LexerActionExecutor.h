@@ -22,7 +22,7 @@ namespace atn {
     /// <summary>
     /// Constructs an executor for a sequence of <seealso cref="LexerAction"/> actions. </summary>
     /// <param name="lexerActions"> The lexer actions to execute. </param>
-    explicit LexerActionExecutor(std::vector<Ref<const LexerAction>> lexerActions);
+    explicit LexerActionExecutor(std::vector<CppRef<const LexerAction>> lexerActions);
 
     /// <summary>
     /// Creates a <seealso cref="LexerActionExecutor"/> which executes the actions for
@@ -38,8 +38,8 @@ namespace atn {
     /// </param>
     /// <returns> A <seealso cref="LexerActionExecutor"/> for executing the combine actions
     /// of {@code lexerActionExecutor} and {@code lexerAction}. </returns>
-    static Ref<const LexerActionExecutor> append(const Ref<const LexerActionExecutor> &lexerActionExecutor,
-                                                 Ref<const LexerAction> lexerAction);
+    static CppRef<const LexerActionExecutor> append(const CppRef<const LexerActionExecutor> &lexerActionExecutor,
+                                                 CppRef<const LexerAction> lexerAction);
 
     /// <summary>
     /// Creates a <seealso cref="LexerActionExecutor"/> which encodes the current offset
@@ -69,12 +69,12 @@ namespace atn {
     /// </param>
     /// <returns> A <seealso cref="LexerActionExecutor"/> which stores input stream offsets
     /// for all position-dependent lexer actions. </returns>
-    Ref<const LexerActionExecutor> fixOffsetBeforeMatch(int offset) const;
+    CppRef<const LexerActionExecutor> fixOffsetBeforeMatch(int offset) const;
 
     /// <summary>
     /// Gets the lexer actions to be executed by this executor. </summary>
     /// <returns> The lexer actions to be executed by this executor. </returns>
-    const std::vector<Ref<const LexerAction>>& getLexerActions() const;
+    const std::vector<CppRef<const LexerAction>>& getLexerActions() const;
 
     /// <summary>
     /// Execute the actions encapsulated by this executor within the context of a
@@ -101,7 +101,7 @@ namespace atn {
     bool equals(const LexerActionExecutor &other) const;
 
   private:
-    const std::vector<Ref<const LexerAction>> _lexerActions;
+    const std::vector<CppRef<const LexerAction>> _lexerActions;
     mutable std::atomic<size_t> _hashCode;
   };
 

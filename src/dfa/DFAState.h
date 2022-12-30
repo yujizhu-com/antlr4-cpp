@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -42,7 +42,7 @@ namespace dfa {
   public:
     struct ANTLR4CPP_PUBLIC PredPrediction final {
     public:
-      Ref<const atn::SemanticContext> pred; // never null; at least SemanticContext.NONE
+      CppRef<const atn::SemanticContext> pred; // never null; at least SemanticContext.NONE
       int alt;
 
       PredPrediction() = delete;
@@ -50,7 +50,7 @@ namespace dfa {
       PredPrediction(const PredPrediction&) = default;
       PredPrediction(PredPrediction&&) = default;
 
-      PredPrediction(Ref<const atn::SemanticContext> pred, int alt) : pred(std::move(pred)), alt(alt) {}
+      PredPrediction(CppRef<const atn::SemanticContext> pred, int alt) : pred(std::move(pred)), alt(alt) {}
 
       PredPrediction& operator=(const PredPrediction&) = default;
       PredPrediction& operator=(PredPrediction&&) = default;
@@ -71,7 +71,7 @@ namespace dfa {
     /// <seealso cref="#requiresFullContext"/>.
     size_t prediction = 0;
 
-    Ref<const atn::LexerActionExecutor> lexerActionExecutor;
+    CppRef<const atn::LexerActionExecutor> lexerActionExecutor;
 
     /// <summary>
     /// During SLL parsing, this is a list of predicates associated with the

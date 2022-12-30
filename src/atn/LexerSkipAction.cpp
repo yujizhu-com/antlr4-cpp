@@ -12,8 +12,8 @@ using namespace antlr4;
 using namespace antlr4::atn;
 using namespace antlr4::misc;
 
-const Ref<const LexerSkipAction>& LexerSkipAction::getInstance() {
-  static const Ref<const LexerSkipAction> instance(new LexerSkipAction());
+const CppRef<const LexerSkipAction>& LexerSkipAction::getInstance() {
+  static const CppRef<const LexerSkipAction> instance(new LexerSkipAction());
   return instance;
 }
 

@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -28,7 +28,7 @@ namespace atn {
   public:
     /// Represents $ in local context prediction, which means wildcard.
     /// *+x = *.
-    static const Ref<const PredictionContext> EMPTY;
+    static const CppRef<const PredictionContext> EMPTY;
 
     /// Represents $ in an array in full context mode, when $
     /// doesn't mean wildcard: $ + x = [$,x]. Here,
@@ -39,8 +39,8 @@ namespace atn {
     static constexpr size_t EMPTY_RETURN_STATE = std::numeric_limits<size_t>::max() - 9;
 
     // dispatch
-    static Ref<const PredictionContext> merge(Ref<const PredictionContext> a,
-                                              Ref<const PredictionContext> b,
+    static CppRef<const PredictionContext> merge(CppRef<const PredictionContext> a,
+                                              CppRef<const PredictionContext> b,
                                               bool rootIsWildcard,
                                               PredictionContextMergeCache *mergeCache);
 
@@ -78,8 +78,8 @@ namespace atn {
     /// <param name="rootIsWildcard"> {@code true} if this is a local-context merge,
     /// otherwise false to indicate a full-context merge </param>
     /// <param name="mergeCache"> </param>
-    static Ref<const PredictionContext> mergeSingletons(Ref<const SingletonPredictionContext> a,
-                                                        Ref<const SingletonPredictionContext> b,
+    static CppRef<const PredictionContext> mergeSingletons(CppRef<const SingletonPredictionContext> a,
+                                                        CppRef<const SingletonPredictionContext> b,
                                                         bool rootIsWildcard,
                                                         PredictionContextMergeCache *mergeCache);
 
@@ -121,8 +121,8 @@ namespace atn {
      * @param rootIsWildcard {@code true} if this is a local-context merge,
      * otherwise false to indicate a full-context merge
      */
-    static Ref<const PredictionContext> mergeRoot(Ref<const SingletonPredictionContext> a,
-                                                  Ref<const SingletonPredictionContext> b,
+    static CppRef<const PredictionContext> mergeRoot(CppRef<const SingletonPredictionContext> a,
+                                                  CppRef<const SingletonPredictionContext> b,
                                                   bool rootIsWildcard);
 
     /**
@@ -144,21 +144,21 @@ namespace atn {
      * {@link SingletonPredictionContext}.<br>
      * <embed src="images/ArrayMerge_EqualTop.svg" type="image/svg+xml"/></p>
      */
-    static Ref<const PredictionContext> mergeArrays(Ref<const ArrayPredictionContext> a,
-                                                    Ref<const ArrayPredictionContext> b,
+    static CppRef<const PredictionContext> mergeArrays(CppRef<const ArrayPredictionContext> a,
+                                                    CppRef<const ArrayPredictionContext> b,
                                                     bool rootIsWildcard,
                                                     PredictionContextMergeCache *mergeCache);
 
-    static std::string toDOTString(const Ref<const PredictionContext> &context);
+    static std::string toDOTString(const CppRef<const PredictionContext> &context);
 
-    static Ref<const PredictionContext> getCachedContext(const Ref<const PredictionContext> &context,
+    static CppRef<const PredictionContext> getCachedContext(const CppRef<const PredictionContext> &context,
                                                          PredictionContextCache &contextCache);
 
-    static std::vector<Ref<const PredictionContext>> getAllContextNodes(const Ref<const PredictionContext> &context);
+    static std::vector<CppRef<const PredictionContext>> getAllContextNodes(const CppRef<const PredictionContext> &context);
 
     /// Convert a RuleContext tree to a PredictionContext graph.
     /// Return EMPTY if outerContext is empty.
-    static Ref<const PredictionContext> fromRuleContext(const ATN &atn, RuleContext *outerContext);
+    static CppRef<const PredictionContext> fromRuleContext(const ATN &atn, RuleContext *outerContext);
 
     PredictionContext(const PredictionContext&) = delete;
 
@@ -170,7 +170,7 @@ namespace atn {
     PredictionContextType getContextType() const { return _contextType; }
 
     virtual size_t size() const = 0;
-    virtual const Ref<const PredictionContext>& getParent(size_t index) const = 0;
+    virtual const CppRef<const PredictionContext>& getParent(size_t index) const = 0;
     virtual size_t getReturnState(size_t index) const = 0;
 
     /// This means only the EMPTY (wildcard? not sure) context is in set.
@@ -185,7 +185,7 @@ namespace atn {
 
     std::vector<std::string> toStrings(Recognizer *recognizer, int currentState) const;
     std::vector<std::string> toStrings(Recognizer *recognizer,
-                                       const Ref<const PredictionContext> &stop,
+                                       const CppRef<const PredictionContext> &stop,
                                        int currentState) const;
 
   protected:

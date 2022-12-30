@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -69,7 +69,7 @@ namespace atn {
 
     /// For lexer ATNs, this is an array of {@link LexerAction} objects which may
     /// be referenced by action transitions in the ATN.
-    std::vector<Ref<const LexerAction>> lexerActions;
+    std::vector<CppRef<const LexerAction>> lexerActions;
 
     std::vector<TokensStartState *> modeToStartState;
 

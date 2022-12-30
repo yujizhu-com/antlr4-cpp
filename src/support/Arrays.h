@@ -47,7 +47,7 @@ namespace antlrcpp {
     }
 
     template <typename T>
-    static bool equals(const std::vector<Ref<T>> &a, const std::vector<Ref<T>> &b) {
+    static bool equals(const std::vector<CppRef<T>> &a, const std::vector<CppRef<T>> &b) {
       if (a.size() != b.size())
         return false;
 
@@ -101,7 +101,7 @@ namespace antlrcpp {
     }
 
     template <typename T>
-    static std::string toString(const std::vector<Ref<T>> &source) {
+    static std::string toString(const std::vector<CppRef<T>> &source) {
       std::string result = "[";
       bool firstEntry = true;
       for (auto &value : source) {

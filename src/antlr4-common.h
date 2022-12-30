@@ -98,4 +98,4 @@
 #endif
 
 #define INVALID_INDEX std::numeric_limits<size_t>::max()
-template<class T> using Ref = std::shared_ptr<T>;
+template<class T> using CppRef = std::shared_ptr<T>;

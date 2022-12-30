@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -21,7 +21,7 @@ namespace {
     return lhs == rhs || lhs == 0 || rhs == 0;
   }
 
-  bool predictionContextEqual(const Ref<const PredictionContext> &lhs, const Ref<const PredictionContext> &rhs) {
+  bool predictionContextEqual(const CppRef<const PredictionContext> &lhs, const CppRef<const PredictionContext> &rhs) {
     return *lhs == *rhs;
   }
 
@@ -30,7 +30,7 @@ namespace {
 ArrayPredictionContext::ArrayPredictionContext(const SingletonPredictionContext &predictionContext)
     : ArrayPredictionContext({ predictionContext.parent }, { predictionContext.returnState }) {}
 
-ArrayPredictionContext::ArrayPredictionContext(std::vector<Ref<const PredictionContext>> parents,
+ArrayPredictionContext::ArrayPredictionContext(std::vector<CppRef<const PredictionContext>> parents,
                                                std::vector<size_t> returnStates)
     : PredictionContext(PredictionContextType::ARRAY), parents(std::move(parents)), returnStates(std::move(returnStates)) {
   assert(this->parents.size() > 0);
@@ -47,7 +47,7 @@ size_t ArrayPredictionContext::size() const {
   return returnStates.size();
 }
 
-const Ref<const PredictionContext>& ArrayPredictionContext::getParent(size_t index) const {
+const CppRef<const PredictionContext>& ArrayPredictionContext::getParent(size_t index) const {
   return parents[index];
 }
 

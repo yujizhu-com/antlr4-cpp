@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -226,8 +226,8 @@ namespace antlr4 {
     virtual tree::pattern::ParseTreePattern compileParseTreePattern(const std::string &pattern, int patternRuleIndex,
                                                                     Lexer *lexer);
 
-    virtual Ref<ANTLRErrorStrategy> getErrorHandler();
-    virtual void setErrorHandler(Ref<ANTLRErrorStrategy> const& handler);
+    virtual CppRef<ANTLRErrorStrategy> getErrorHandler();
+    virtual void setErrorHandler(CppRef<ANTLRErrorStrategy> const& handler);
 
     virtual IntStream* getInputStream() override;
     void setInputStream(IntStream *input) override;
@@ -409,7 +409,7 @@ namespace antlr4 {
 
     /// The error handling strategy for the parser. The default is DefaultErrorStrategy.
     /// See also getErrorHandler.
-    Ref<ANTLRErrorStrategy> _errHandler;
+    CppRef<ANTLRErrorStrategy> _errHandler;
 
     /// <summary>
     /// The input stream.

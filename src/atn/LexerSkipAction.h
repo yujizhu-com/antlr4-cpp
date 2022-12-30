@@ -27,7 +27,7 @@ namespace atn {
     static bool is(const LexerAction *lexerAction) { return lexerAction != nullptr && is(*lexerAction); }
 
     /// Provides a singleton instance of this parameterless lexer action.
-    static const Ref<const LexerSkipAction>& getInstance();
+    static const CppRef<const LexerSkipAction>& getInstance();
 
     /// <summary>
     /// {@inheritDoc}

@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -17,7 +17,7 @@ namespace atn {
   class ANTLR4CPP_PUBLIC ATNSimulator {
   public:
     /// Must distinguish between missing edge and edge we know leads nowhere.
-    static const Ref<dfa::DFAState> ERROR;
+    static const CppRef<dfa::DFAState> ERROR;
     const ATN &atn;
 
     ATNSimulator(const ATN &atn, PredictionContextCache &sharedContextCache);
@@ -40,7 +40,7 @@ namespace atn {
     virtual void clearDFA();
 
     PredictionContextCache& getSharedContextCache() const;
-    Ref<const PredictionContext> getCachedContext(const Ref<const PredictionContext> &context);
+    CppRef<const PredictionContext> getCachedContext(const CppRef<const PredictionContext> &context);
 
   protected:
     /// <summary>

@@ -40,7 +40,7 @@ namespace atn {
     bool matches(size_t symbol, size_t minVocabSymbol, size_t maxVocabSymbol) const override;
     std::string toString() const override;
 
-    const Ref<const SemanticContext::Predicate>& getPredicate() const { return _predicate; }
+    const CppRef<const SemanticContext::Predicate>& getPredicate() const { return _predicate; }
 
   private:
     const std::shared_ptr<const SemanticContext::Predicate> _predicate;

@@ -33,11 +33,11 @@ ATNConfigSet::ATNConfigSet(const ATNConfigSet &other)
 ATNConfigSet::ATNConfigSet(bool fullCtx)
     : fullCtx(fullCtx), _configLookup(0, ATNConfigHasher{this}, ATNConfigComparer{this}) {}
 
-bool ATNConfigSet::add(const Ref<ATNConfig> &config) {
+bool ATNConfigSet::add(const CppRef<ATNConfig> &config) {
   return add(config, nullptr);
 }
 
-bool ATNConfigSet::add(const Ref<ATNConfig> &config, PredictionContextMergeCache *mergeCache) {
+bool ATNConfigSet::add(const CppRef<ATNConfig> &config, PredictionContextMergeCache *mergeCache) {
   assert(config);
 
   if (_readonly) {
@@ -61,7 +61,7 @@ bool ATNConfigSet::add(const Ref<ATNConfig> &config, PredictionContextMergeCache
 
   // a previous (s,i,pi,_), merge with it and save result
   bool rootIsWildcard = !fullCtx;
-  Ref<const PredictionContext> merged = PredictionContext::merge((*existing)->context, config->context, rootIsWildcard, mergeCache);
+  CppRef<const PredictionContext> merged = PredictionContext::merge((*existing)->context, config->context, rootIsWildcard, mergeCache);
   // no need to check for existing.context, config.context in cache
   // since only way to create new graphs is "call rule" and here. We
   // cache at both places.
@@ -110,8 +110,8 @@ BitSet ATNConfigSet::getAlts() const {
   return alts;
 }
 
-std::vector<Ref<const SemanticContext>> ATNConfigSet::getPredicates() const {
-  std::vector<Ref<const SemanticContext>> preds;
+std::vector<CppRef<const SemanticContext>> ATNConfigSet::getPredicates() const {
+  std::vector<CppRef<const SemanticContext>> preds;
   preds.reserve(configs.size());
   for (const auto &c : configs) {
     if (c->semanticContext != SemanticContext::Empty::Instance) {
@@ -121,7 +121,7 @@ std::vector<Ref<const SemanticContext>> ATNConfigSet::getPredicates() const {
   return preds;
 }
 
-const Ref<ATNConfig>& ATNConfigSet::get(size_t i) const {
+const CppRef<ATNConfig>& ATNConfigSet::get(size_t i) const {
   return configs[i];
 }
 

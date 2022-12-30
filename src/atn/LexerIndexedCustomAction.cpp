@@ -23,7 +23,7 @@ namespace {
 
 }
 
-LexerIndexedCustomAction::LexerIndexedCustomAction(int offset, Ref<const LexerAction> action)
+LexerIndexedCustomAction::LexerIndexedCustomAction(int offset, CppRef<const LexerAction> action)
     : LexerAction(LexerActionType::INDEXED_CUSTOM, true), _action(std::move(action)), _offset(offset) {}
 
 void LexerIndexedCustomAction::execute(Lexer *lexer) const {

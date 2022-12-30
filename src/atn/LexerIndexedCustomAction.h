@@ -42,7 +42,7 @@ namespace atn {
     /// executed. </param>
     /// <param name="action"> The lexer action to execute at a particular offset in the
     /// input <seealso cref="CharStream"/>. </param>
-    LexerIndexedCustomAction(int offset, Ref<const LexerAction> action);
+    LexerIndexedCustomAction(int offset, CppRef<const LexerAction> action);
 
     /// <summary>
     /// Gets the location in the input <seealso cref="CharStream"/> at which the lexer
@@ -57,7 +57,7 @@ namespace atn {
     /// Gets the lexer action to execute.
     /// </summary>
     /// <returns> A <seealso cref="LexerAction"/> object which executes the lexer action. </returns>
-    const Ref<const LexerAction>& getAction() const { return _action; }
+    const CppRef<const LexerAction>& getAction() const { return _action; }
 
     void execute(Lexer *lexer) const override;
     bool equals(const LexerAction &other) const override;
@@ -67,7 +67,7 @@ namespace atn {
     size_t hashCodeImpl() const override;
 
   private:
-    const Ref<const LexerAction> _action;
+    const CppRef<const LexerAction> _action;
     const int _offset;
   };
 

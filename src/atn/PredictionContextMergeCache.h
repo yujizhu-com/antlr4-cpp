@@ -47,12 +47,12 @@ namespace atn {
     PredictionContextMergeCache& operator=(const PredictionContextMergeCache&) = delete;
     PredictionContextMergeCache& operator=(PredictionContextMergeCache&&) = delete;
 
-    Ref<const PredictionContext> put(const Ref<const PredictionContext> &key1,
-                                     const Ref<const PredictionContext> &key2,
-                                     Ref<const PredictionContext> value);
+    CppRef<const PredictionContext> put(const CppRef<const PredictionContext> &key1,
+                                     const CppRef<const PredictionContext> &key2,
+                                     CppRef<const PredictionContext> value);
 
-    Ref<const PredictionContext> get(const Ref<const PredictionContext> &key1,
-                                     const Ref<const PredictionContext> &key2) const;
+    CppRef<const PredictionContext> get(const CppRef<const PredictionContext> &key1,
+                                     const CppRef<const PredictionContext> &key2) const;
 
     const PredictionContextMergeCacheOptions& getOptions() const { return _options; }
 
@@ -70,8 +70,8 @@ namespace atn {
     };
 
     struct ANTLR4CPP_PUBLIC Entry final {
-      std::pair<Ref<const PredictionContext>, Ref<const PredictionContext>> key;
-      Ref<const PredictionContext> value;
+      std::pair<CppRef<const PredictionContext>, CppRef<const PredictionContext>> key;
+      CppRef<const PredictionContext> value;
       Entry *prev = nullptr;
       Entry *next = nullptr;
     };

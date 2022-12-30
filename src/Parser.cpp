@@ -274,11 +274,11 @@ tree::pattern::ParseTreePattern Parser::compileParseTreePattern(const std::strin
   return m.compile(pattern, patternRuleIndex);
 }
 
-Ref<ANTLRErrorStrategy> Parser::getErrorHandler() {
+CppRef<ANTLRErrorStrategy> Parser::getErrorHandler() {
   return _errHandler;
 }
 
-void Parser::setErrorHandler(Ref<ANTLRErrorStrategy> const& handler) {
+void Parser::setErrorHandler(CppRef<ANTLRErrorStrategy> const& handler) {
   _errHandler = handler;
 }
 

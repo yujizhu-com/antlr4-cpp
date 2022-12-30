@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -120,7 +120,7 @@ namespace atn {
     void getReachableConfigSet(CharStream *input, ATNConfigSet *closure_, // closure_ as we have a closure() already
                                ATNConfigSet *reach, size_t t);
 
-    virtual void accept(CharStream *input, const Ref<const LexerActionExecutor> &lexerActionExecutor, size_t startIndex, size_t index,
+    virtual void accept(CharStream *input, const CppRef<const LexerActionExecutor> &lexerActionExecutor, size_t startIndex, size_t index,
                         size_t line, size_t charPos);
 
     virtual ATNState *getReachableTarget(const Transition *trans, size_t t);
@@ -136,11 +136,11 @@ namespace atn {
     /// </summary>
     /// <returns> {@code true} if an accept state is reached, otherwise
     /// {@code false}. </returns>
-    virtual bool closure(CharStream *input, const Ref<LexerATNConfig> &config, ATNConfigSet *configs,
+    virtual bool closure(CharStream *input, const CppRef<LexerATNConfig> &config, ATNConfigSet *configs,
                          bool currentAltReachedAcceptState, bool speculative, bool treatEofAsEpsilon);
 
     // side-effect: can alter configs.hasSemanticContext
-    virtual Ref<LexerATNConfig> getEpsilonTarget(CharStream *input, const Ref<LexerATNConfig> &config, const Transition *t,
+    virtual CppRef<LexerATNConfig> getEpsilonTarget(CharStream *input, const CppRef<LexerATNConfig> &config, const Transition *t,
       ATNConfigSet *configs, bool speculative, bool treatEofAsEpsilon);
 
     /// <summary>

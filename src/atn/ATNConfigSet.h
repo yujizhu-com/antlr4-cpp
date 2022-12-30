@@ -20,7 +20,7 @@ namespace atn {
   class ANTLR4CPP_PUBLIC ATNConfigSet {
   public:
     /// Track the elements as they are added to the set; supports get(i)
-    std::vector<Ref<ATNConfig>> configs;
+    std::vector<CppRef<ATNConfig>> configs;
 
     // TODO: these fields make me pretty uncomfortable but nice to pack up info together, saves recomputation
     // TODO: can we track conflicts as they are added to save scanning configs later?
@@ -53,7 +53,7 @@ namespace atn {
 
     virtual ~ATNConfigSet() = default;
 
-    bool add(const Ref<ATNConfig> &config);
+    bool add(const CppRef<ATNConfig> &config);
 
     /// <summary>
     /// Adding a new config means merging contexts with existing configs for
@@ -65,7 +65,7 @@ namespace atn {
     /// This method updates <seealso cref="#dipsIntoOuterContext"/> and
     /// <seealso cref="#hasSemanticContext"/> when necessary.
     /// </summary>
-    bool add(const Ref<ATNConfig> &config, PredictionContextMergeCache *mergeCache);
+    bool add(const CppRef<ATNConfig> &config, PredictionContextMergeCache *mergeCache);
 
     bool addAll(const ATNConfigSet &other);
 
@@ -80,9 +80,9 @@ namespace atn {
      * @since 4.3
      */
     antlrcpp::BitSet getAlts() const;
-    std::vector<Ref<const SemanticContext>> getPredicates() const;
+    std::vector<CppRef<const SemanticContext>> getPredicates() const;
 
-    const Ref<ATNConfig>& get(size_t i) const;
+    const CppRef<ATNConfig>& get(size_t i) const;
 
     void optimizeConfigs(ATNSimulator *interpreter);
 

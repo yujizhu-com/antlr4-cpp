@@ -41,21 +41,21 @@ namespace atn {
     PredictionContextCache& operator=(const PredictionContextCache&) = delete;
     PredictionContextCache& operator=(PredictionContextCache&&) = delete;
 
-    void put(const Ref<const PredictionContext> &value);
+    void put(const CppRef<const PredictionContext> &value);
 
-    Ref<const PredictionContext> get(const Ref<const PredictionContext> &value) const;
+    CppRef<const PredictionContext> get(const CppRef<const PredictionContext> &value) const;
 
   private:
     struct ANTLR4CPP_PUBLIC PredictionContextHasher final {
-      size_t operator()(const Ref<const PredictionContext> &predictionContext) const;
+      size_t operator()(const CppRef<const PredictionContext> &predictionContext) const;
     };
 
     struct ANTLR4CPP_PUBLIC PredictionContextComparer final {
-      bool operator()(const Ref<const PredictionContext> &lhs,
-                      const Ref<const PredictionContext> &rhs) const;
+      bool operator()(const CppRef<const PredictionContext> &lhs,
+                      const CppRef<const PredictionContext> &rhs) const;
     };
 
-    FlatHashSet<Ref<const PredictionContext>,
+    FlatHashSet<CppRef<const PredictionContext>,
                 PredictionContextHasher, PredictionContextComparer> _data;
   };
 

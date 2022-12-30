@@ -13,11 +13,11 @@ namespace {
 
 // Create a normal shared pointer if the configurations are to be deleted. If not, then
 // the shared pointer is created with a deleter that does nothing.
-Ref<atn::ATNConfigSet> buildConfigsRef(atn::ATNConfigSet *configs, bool deleteConfigs) {
+CppRef<atn::ATNConfigSet> buildConfigsRef(atn::ATNConfigSet *configs, bool deleteConfigs) {
   if (deleteConfigs) {
-    return Ref<atn::ATNConfigSet>(configs);
+    return CppRef<atn::ATNConfigSet>(configs);
   } else {
-    return Ref<atn::ATNConfigSet>(configs, [](atn::ATNConfigSet *){});
+    return CppRef<atn::ATNConfigSet>(configs, [](atn::ATNConfigSet *){});
   }
 }
 

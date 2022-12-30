@@ -22,29 +22,29 @@ namespace {
     return lhs == rhs || lhs == 0 || rhs == 0;
   }
 
-  bool lexerActionEqual(const Ref<const LexerAction> &lhs, const Ref<const LexerAction> &rhs) {
+  bool lexerActionEqual(const CppRef<const LexerAction> &lhs, const CppRef<const LexerAction> &rhs) {
     return *lhs == *rhs;
   }
 
 }
 
-LexerActionExecutor::LexerActionExecutor(std::vector<Ref<const LexerAction>> lexerActions)
+LexerActionExecutor::LexerActionExecutor(std::vector<CppRef<const LexerAction>> lexerActions)
     : _lexerActions(std::move(lexerActions)), _hashCode(0) {}
 
-Ref<const LexerActionExecutor> LexerActionExecutor::append(const Ref<const LexerActionExecutor> &lexerActionExecutor,
-                                                           Ref<const LexerAction> lexerAction) {
+CppRef<const LexerActionExecutor> LexerActionExecutor::append(const CppRef<const LexerActionExecutor> &lexerActionExecutor,
+                                                           CppRef<const LexerAction> lexerAction) {
   if (lexerActionExecutor == nullptr) {
-    return std::make_shared<LexerActionExecutor>(std::vector<Ref<const LexerAction>>{ std::move(lexerAction) });
+    return std::make_shared<LexerActionExecutor>(std::vector<CppRef<const LexerAction>>{ std::move(lexerAction) });
   }
-  std::vector<Ref<const LexerAction>> lexerActions;
+  std::vector<CppRef<const LexerAction>> lexerActions;
   lexerActions.reserve(lexerActionExecutor->_lexerActions.size() + 1);
   lexerActions.insert(lexerActions.begin(), lexerActionExecutor->_lexerActions.begin(), lexerActionExecutor->_lexerActions.end());
   lexerActions.push_back(std::move(lexerAction));
   return std::make_shared<LexerActionExecutor>(std::move(lexerActions));
 }
 
-Ref<const LexerActionExecutor> LexerActionExecutor::fixOffsetBeforeMatch(int offset) const {
-  std::vector<Ref<const LexerAction>> updatedLexerActions;
+CppRef<const LexerActionExecutor> LexerActionExecutor::fixOffsetBeforeMatch(int offset) const {
+  std::vector<CppRef<const LexerAction>> updatedLexerActions;
   for (size_t i = 0; i < _lexerActions.size(); i++) {
     if (_lexerActions[i]->isPositionDependent() && !LexerIndexedCustomAction::is(*_lexerActions[i])) {
       if (updatedLexerActions.empty()) {
@@ -59,7 +59,7 @@ Ref<const LexerActionExecutor> LexerActionExecutor::fixOffsetBeforeMatch(int off
   return std::make_shared<LexerActionExecutor>(std::move(updatedLexerActions));
 }
 
-const std::vector<Ref<const LexerAction>>& LexerActionExecutor::getLexerActions() const {
+const std::vector<CppRef<const LexerAction>>& LexerActionExecutor::getLexerActions() const {
   return _lexerActions;
 }
 

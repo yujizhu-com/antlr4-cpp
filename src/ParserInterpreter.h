@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -91,7 +91,7 @@ namespace antlr4 {
      */
     void addDecisionOverride(int decision, int tokenIndex, int forcedAlt);
 
-    Ref<InterpreterRuleContext> getOverrideDecisionRoot() const;
+    CppRef<InterpreterRuleContext> getOverrideDecisionRoot() const;
 
     /** Return the root of the parse, which can be useful if the parser
      *  bails out. You still can access the top node. Note that,
@@ -139,7 +139,7 @@ namespace antlr4 {
      *  us what the root of the parse tree is when using override
      *  for an ambiguity/lookahead check.
      */
-    Ref<InterpreterRuleContext> _overrideDecisionRoot;
+    CppRef<InterpreterRuleContext> _overrideDecisionRoot;
     InterpreterRuleContext* _rootContext;
 
     virtual atn::ATNState *getATNState();

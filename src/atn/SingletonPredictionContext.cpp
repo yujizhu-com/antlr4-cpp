@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -19,12 +19,12 @@ namespace {
 
 }
 
-SingletonPredictionContext::SingletonPredictionContext(Ref<const PredictionContext> parent, size_t returnState)
+SingletonPredictionContext::SingletonPredictionContext(CppRef<const PredictionContext> parent, size_t returnState)
     : PredictionContext(PredictionContextType::SINGLETON), parent(std::move(parent)), returnState(returnState) {
   assert(returnState != ATNState::INVALID_STATE_NUMBER);
 }
 
-Ref<const SingletonPredictionContext> SingletonPredictionContext::create(Ref<const PredictionContext> parent, size_t returnState) {
+CppRef<const SingletonPredictionContext> SingletonPredictionContext::create(CppRef<const PredictionContext> parent, size_t returnState) {
   if (returnState == EMPTY_RETURN_STATE && parent == nullptr) {
     // someone can pass in the bits of an array ctx that mean $
     return std::dynamic_pointer_cast<const SingletonPredictionContext>(EMPTY);
@@ -40,7 +40,7 @@ size_t SingletonPredictionContext::size() const {
   return 1;
 }
 
-const Ref<const PredictionContext>& SingletonPredictionContext::getParent(size_t index) const {
+const CppRef<const PredictionContext>& SingletonPredictionContext::getParent(size_t index) const {
   assert(index == 0);
   static_cast<void>(index);
   return parent;

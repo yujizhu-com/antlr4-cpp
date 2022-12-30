@@ -1,4 +1,4 @@
-﻿
+
 /* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -24,20 +24,20 @@ namespace atn {
     /// returnState == EMPTY_RETURN_STATE.
     // Also here: we use a strong reference to our parents to avoid having them freed prematurely.
     //            See also SinglePredictionContext.
-    std::vector<Ref<const PredictionContext>> parents;
+    std::vector<CppRef<const PredictionContext>> parents;
 
     /// Sorted for merge, no duplicates; if present, EMPTY_RETURN_STATE is always last.
     std::vector<size_t> returnStates;
 
     explicit ArrayPredictionContext(const SingletonPredictionContext &predictionContext);
 
-    ArrayPredictionContext(std::vector<Ref<const PredictionContext>> parents, std::vector<size_t> returnStates);
+    ArrayPredictionContext(std::vector<CppRef<const PredictionContext>> parents, std::vector<size_t> returnStates);
 
     ArrayPredictionContext(ArrayPredictionContext&&) = default;
 
     bool isEmpty() const override;
     size_t size() const override;
-    const Ref<const PredictionContext>& getParent(size_t index) const override;
+    const CppRef<const PredictionContext>& getParent(size_t index) const override;
     size_t getReturnState(size_t index) const override;
     bool equals(const PredictionContext &other) const override;
     std::string toString() const override;

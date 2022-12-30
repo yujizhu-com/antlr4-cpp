@@ -32,10 +32,10 @@ namespace {
   };
 
   template <typename Comparer>
-  void insertSemanticContext(const Ref<const SemanticContext> &semanticContext,
+  void insertSemanticContext(const CppRef<const SemanticContext> &semanticContext,
                              std::unordered_set<const SemanticContext*, SemanticContextHasher, SemanticContextComparer> &operandSet,
-                             std::vector<Ref<const SemanticContext>> &operandList,
-                             Ref<const SemanticContext::PrecedencePredicate> &precedencePredicate,
+                             std::vector<CppRef<const SemanticContext>> &operandList,
+                             CppRef<const SemanticContext::PrecedencePredicate> &precedencePredicate,
                              Comparer comparer) {
     if (semanticContext != nullptr) {
       if (semanticContext->getContextType() == SemanticContextType::PRECEDENCE) {
@@ -52,10 +52,10 @@ namespace {
   }
 
   template <typename Comparer>
-  void insertSemanticContext(Ref<const SemanticContext> &&semanticContext,
+  void insertSemanticContext(CppRef<const SemanticContext> &&semanticContext,
                              std::unordered_set<const SemanticContext*, SemanticContextHasher, SemanticContextComparer> &operandSet,
-                             std::vector<Ref<const SemanticContext>> &operandList,
-                             Ref<const SemanticContext::PrecedencePredicate> &precedencePredicate,
+                             std::vector<CppRef<const SemanticContext>> &operandList,
+                             CppRef<const SemanticContext::PrecedencePredicate> &precedencePredicate,
                              Comparer comparer) {
     if (semanticContext != nullptr) {
       if (semanticContext->getContextType() == SemanticContextType::PRECEDENCE) {
@@ -71,7 +71,7 @@ namespace {
     }
   }
 
-  size_t predictOperandCapacity(const Ref<const SemanticContext> &x) {
+  size_t predictOperandCapacity(const CppRef<const SemanticContext> &x) {
     switch (x->getContextType()) {
       case SemanticContextType::AND:
         return downCast<const SemanticContext::AND&>(*x).getOperands().size();
@@ -82,7 +82,7 @@ namespace {
     }
   }
 
-  size_t predictOperandCapacity(const Ref<const SemanticContext> &a, const Ref<const SemanticContext> &b) {
+  size_t predictOperandCapacity(const CppRef<const SemanticContext> &a, const CppRef<const SemanticContext> &b) {
     return predictOperandCapacity(a) + predictOperandCapacity(b);
   }
 
@@ -134,7 +134,7 @@ bool SemanticContext::PrecedencePredicate::eval(Recognizer *parser, RuleContext 
   return parser->precpred(parserCallStack, precedence);
 }
 
-Ref<const SemanticContext> SemanticContext::PrecedencePredicate::evalPrecedence(Recognizer *parser,
+CppRef<const SemanticContext> SemanticContext::PrecedencePredicate::evalPrecedence(Recognizer *parser,
   RuleContext *parserCallStack) const {
   if (parser->precpred(parserCallStack, precedence)) {
     return SemanticContext::Empty::Instance;
@@ -166,9 +166,9 @@ std::string SemanticContext::PrecedencePredicate::toString() const {
 
 //------------------ AND -----------------------------------------------------------------------------------------------
 
-SemanticContext::AND::AND(Ref<const SemanticContext> a, Ref<const SemanticContext> b) : Operator(SemanticContextType::AND) {
+SemanticContext::AND::AND(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b) : Operator(SemanticContextType::AND) {
   std::unordered_set<const SemanticContext*, SemanticContextHasher, SemanticContextComparer> operands;
-  Ref<const SemanticContext::PrecedencePredicate> precedencePredicate;
+  CppRef<const SemanticContext::PrecedencePredicate> precedencePredicate;
 
   _opnds.reserve(predictOperandCapacity(a, b) + 1);
 
@@ -197,7 +197,7 @@ SemanticContext::AND::AND(Ref<const SemanticContext> a, Ref<const SemanticContex
   }
 }
 
-const std::vector<Ref<const SemanticContext>>& SemanticContext::AND::getOperands() const {
+const std::vector<CppRef<const SemanticContext>>& SemanticContext::AND::getOperands() const {
   return _opnds;
 }
 
@@ -227,9 +227,9 @@ bool SemanticContext::AND::eval(Recognizer *parser, RuleContext *parserCallStack
   return true;
 }
 
-Ref<const SemanticContext> SemanticContext::AND::evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const {
+CppRef<const SemanticContext> SemanticContext::AND::evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const {
   bool differs = false;
-  std::vector<Ref<const SemanticContext>> operands;
+  std::vector<CppRef<const SemanticContext>> operands;
   for (const auto &context : getOperands()) {
     auto evaluated = context->evalPrecedence(parser, parserCallStack);
     differs |= (evaluated != context);
@@ -252,7 +252,7 @@ Ref<const SemanticContext> SemanticContext::AND::evalPrecedence(Recognizer *pars
     return Empty::Instance;
   }
 
-  Ref<const SemanticContext> result = std::move(operands[0]);
+  CppRef<const SemanticContext> result = std::move(operands[0]);
   for (size_t i = 1; i < operands.size(); ++i) {
     result = SemanticContext::And(std::move(result), std::move(operands[i]));
   }
@@ -270,9 +270,9 @@ std::string SemanticContext::AND::toString() const {
 
 //------------------ OR ------------------------------------------------------------------------------------------------
 
-SemanticContext::OR::OR(Ref<const SemanticContext> a, Ref<const SemanticContext> b) : Operator(SemanticContextType::OR) {
+SemanticContext::OR::OR(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b) : Operator(SemanticContextType::OR) {
   std::unordered_set<const SemanticContext*, SemanticContextHasher, SemanticContextComparer> operands;
-  Ref<const SemanticContext::PrecedencePredicate> precedencePredicate;
+  CppRef<const SemanticContext::PrecedencePredicate> precedencePredicate;
 
   _opnds.reserve(predictOperandCapacity(a, b) + 1);
 
@@ -301,7 +301,7 @@ SemanticContext::OR::OR(Ref<const SemanticContext> a, Ref<const SemanticContext>
   }
 }
 
-const std::vector<Ref<const SemanticContext>>& SemanticContext::OR::getOperands() const {
+const std::vector<CppRef<const SemanticContext>>& SemanticContext::OR::getOperands() const {
   return _opnds;
 }
 
@@ -331,9 +331,9 @@ bool SemanticContext::OR::eval(Recognizer *parser, RuleContext *parserCallStack)
   return false;
 }
 
-Ref<const SemanticContext> SemanticContext::OR::evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const {
+CppRef<const SemanticContext> SemanticContext::OR::evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const {
   bool differs = false;
-  std::vector<Ref<const SemanticContext>> operands;
+  std::vector<CppRef<const SemanticContext>> operands;
   for (const auto &context : getOperands()) {
     auto evaluated = context->evalPrecedence(parser, parserCallStack);
     differs |= (evaluated != context);
@@ -356,7 +356,7 @@ Ref<const SemanticContext> SemanticContext::OR::evalPrecedence(Recognizer *parse
     return nullptr;
   }
 
-  Ref<const SemanticContext> result = std::move(operands[0]);
+  CppRef<const SemanticContext> result = std::move(operands[0]);
   for (size_t i = 1; i < operands.size(); ++i) {
     result = SemanticContext::Or(std::move(result), std::move(operands[i]));
   }
@@ -374,13 +374,13 @@ std::string SemanticContext::OR::toString() const {
 
 //------------------ SemanticContext -----------------------------------------------------------------------------------
 
-const Ref<const SemanticContext> SemanticContext::Empty::Instance = std::make_shared<Predicate>(INVALID_INDEX, INVALID_INDEX, false);
+const CppRef<const SemanticContext> SemanticContext::Empty::Instance = std::make_shared<Predicate>(INVALID_INDEX, INVALID_INDEX, false);
 
-Ref<const SemanticContext> SemanticContext::evalPrecedence(Recognizer * /*parser*/, RuleContext * /*parserCallStack*/) const {
+CppRef<const SemanticContext> SemanticContext::evalPrecedence(Recognizer * /*parser*/, RuleContext * /*parserCallStack*/) const {
   return shared_from_this();
 }
 
-Ref<const SemanticContext> SemanticContext::And(Ref<const SemanticContext> a, Ref<const SemanticContext> b) {
+CppRef<const SemanticContext> SemanticContext::And(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b) {
   if (!a || a == Empty::Instance) {
     return b;
   }
@@ -389,7 +389,7 @@ Ref<const SemanticContext> SemanticContext::And(Ref<const SemanticContext> a, Re
     return a;
   }
 
-  Ref<AND> result = std::make_shared<AND>(std::move(a), std::move(b));
+  CppRef<AND> result = std::make_shared<AND>(std::move(a), std::move(b));
   if (result->getOperands().size() == 1) {
     return result->getOperands()[0];
   }
@@ -397,7 +397,7 @@ Ref<const SemanticContext> SemanticContext::And(Ref<const SemanticContext> a, Re
   return result;
 }
 
-Ref<const SemanticContext> SemanticContext::Or(Ref<const SemanticContext> a, Ref<const SemanticContext> b) {
+CppRef<const SemanticContext> SemanticContext::Or(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b) {
   if (!a) {
     return b;
   }
@@ -409,7 +409,7 @@ Ref<const SemanticContext> SemanticContext::Or(Ref<const SemanticContext> a, Ref
     return Empty::Instance;
   }
 
-  Ref<OR> result = std::make_shared<OR>(std::move(a), std::move(b));
+  CppRef<OR> result = std::make_shared<OR>(std::move(a), std::move(b));
   if (result->getOperands().size() == 1) {
     return result->getOperands()[0];
   }

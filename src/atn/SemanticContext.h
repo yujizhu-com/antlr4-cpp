@@ -57,7 +57,7 @@ namespace atn {
      * semantic context after precedence predicates are evaluated.</li>
      * </ul>
      */
-    virtual Ref<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const;
+    virtual CppRef<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const;
 
     virtual size_t hashCode() const = 0;
 
@@ -65,10 +65,10 @@ namespace atn {
 
     virtual std::string toString() const = 0;
 
-    static Ref<const SemanticContext> And(Ref<const SemanticContext> a, Ref<const SemanticContext> b);
+    static CppRef<const SemanticContext> And(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b);
 
     /// See also: ParserATNSimulator::getPredsForAmbigAlts.
-    static Ref<const SemanticContext> Or(Ref<const SemanticContext> a, Ref<const SemanticContext> b);
+    static CppRef<const SemanticContext> Or(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b);
 
     class Empty;
     class Predicate;
@@ -98,7 +98,7 @@ namespace atn {
      * The default {@link SemanticContext}, which is semantically equivalent to
      * a predicate of the form {@code {true}?}.
      */
-    static const Ref<const SemanticContext> Instance;
+    static const CppRef<const SemanticContext> Instance;
   };
 
   class ANTLR4CPP_PUBLIC SemanticContext::Predicate final : public SemanticContext {
@@ -130,7 +130,7 @@ namespace atn {
     explicit PrecedencePredicate(int precedence);
 
     bool eval(Recognizer *parser, RuleContext *parserCallStack) const override;
-    Ref<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const override;
+    CppRef<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const override;
     size_t hashCode() const override;
     bool equals(const SemanticContext &other) const override;
     std::string toString() const override;
@@ -160,7 +160,7 @@ namespace atn {
      * @since 4.3
      */
 
-    virtual const std::vector<Ref<const SemanticContext>>& getOperands() const = 0;
+    virtual const std::vector<CppRef<const SemanticContext>>& getOperands() const = 0;
 
   protected:
     using SemanticContext::SemanticContext;
@@ -176,22 +176,22 @@ namespace atn {
 
     static bool is(const SemanticContext *semanticContext) { return semanticContext != nullptr && is(*semanticContext); }
 
-    AND(Ref<const SemanticContext> a, Ref<const SemanticContext> b) ;
+    AND(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b) ;
 
-    const std::vector<Ref<const SemanticContext>>& getOperands() const override;
+    const std::vector<CppRef<const SemanticContext>>& getOperands() const override;
 
     /**
      * The evaluation of predicates by this context is short-circuiting, but
      * unordered.</p>
      */
     bool eval(Recognizer *parser, RuleContext *parserCallStack) const override;
-    Ref<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const override;
+    CppRef<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const override;
     size_t hashCode() const override;
     bool equals(const SemanticContext &other) const override;
     std::string toString() const override;
 
   private:
-    std::vector<Ref<const SemanticContext>> _opnds;
+    std::vector<CppRef<const SemanticContext>> _opnds;
   };
 
   /**
@@ -204,22 +204,22 @@ namespace atn {
 
     static bool is(const SemanticContext *semanticContext) { return semanticContext != nullptr && is(*semanticContext); }
 
-    OR(Ref<const SemanticContext> a, Ref<const SemanticContext> b);
+    OR(CppRef<const SemanticContext> a, CppRef<const SemanticContext> b);
 
-    const std::vector<Ref<const SemanticContext>>& getOperands() const override;
+    const std::vector<CppRef<const SemanticContext>>& getOperands() const override;
 
     /**
      * The evaluation of predicates by this context is short-circuiting, but
      * unordered.
      */
     bool eval(Recognizer *parser, RuleContext *parserCallStack) const override;
-    Ref<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const override;
+    CppRef<const SemanticContext> evalPrecedence(Recognizer *parser, RuleContext *parserCallStack) const override;
     size_t hashCode() const override;
     bool equals(const SemanticContext &other) const override;
     std::string toString() const override;
 
   private:
-    std::vector<Ref<const SemanticContext>> _opnds;
+    std::vector<CppRef<const SemanticContext>> _opnds;
   };
 
 }  // namespace atn

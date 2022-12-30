@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -17,19 +17,19 @@
 using namespace antlr4::atn;
 using namespace antlrcpp;
 
-LexerATNConfig::LexerATNConfig(ATNState *state, int alt, Ref<const PredictionContext> context)
+LexerATNConfig::LexerATNConfig(ATNState *state, int alt, CppRef<const PredictionContext> context)
     : ATNConfig(state, alt, std::move(context)) {}
 
-LexerATNConfig::LexerATNConfig(ATNState *state, int alt, Ref<const PredictionContext> context, Ref<const LexerActionExecutor> lexerActionExecutor)
+LexerATNConfig::LexerATNConfig(ATNState *state, int alt, CppRef<const PredictionContext> context, CppRef<const LexerActionExecutor> lexerActionExecutor)
     : ATNConfig(state, alt, std::move(context)), _lexerActionExecutor(std::move(lexerActionExecutor)) {}
 
 LexerATNConfig::LexerATNConfig(LexerATNConfig const& other, ATNState *state)
     : ATNConfig(other, state), _lexerActionExecutor(other._lexerActionExecutor), _passedThroughNonGreedyDecision(checkNonGreedyDecision(other, state)) {}
 
-LexerATNConfig::LexerATNConfig(LexerATNConfig const& other, ATNState *state, Ref<const LexerActionExecutor> lexerActionExecutor)
+LexerATNConfig::LexerATNConfig(LexerATNConfig const& other, ATNState *state, CppRef<const LexerActionExecutor> lexerActionExecutor)
     : ATNConfig(other, state), _lexerActionExecutor(std::move(lexerActionExecutor)), _passedThroughNonGreedyDecision(checkNonGreedyDecision(other, state)) {}
 
-LexerATNConfig::LexerATNConfig(LexerATNConfig const& other, ATNState *state, Ref<const PredictionContext> context)
+LexerATNConfig::LexerATNConfig(LexerATNConfig const& other, ATNState *state, CppRef<const PredictionContext> context)
     : ATNConfig(other, state, std::move(context)), _lexerActionExecutor(other._lexerActionExecutor), _passedThroughNonGreedyDecision(checkNonGreedyDecision(other, state)) {}
 
 size_t LexerATNConfig::hashCode() const {

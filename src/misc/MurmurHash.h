@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -39,7 +39,7 @@ namespace misc {
      * @return the updated intermediate hash value
      */
     template <class T>
-    static size_t update(size_t hash, Ref<T> const& value) {
+    static size_t update(size_t hash, CppRef<T> const& value) {
       return update(hash, value != nullptr ? value->hashCode() : 0);
     }
 
@@ -71,7 +71,7 @@ namespace misc {
     /// <param name="seed"> the seed for the MurmurHash algorithm </param>
     /// <returns> the hash code of the data </returns>
     template<typename T> // where T is C array type
-    static size_t hashCode(const std::vector<Ref<T>> &data, size_t seed = DEFAULT_SEED) {
+    static size_t hashCode(const std::vector<CppRef<T>> &data, size_t seed = DEFAULT_SEED) {
       size_t hash = initialize(seed);
       for (auto &entry : data) {
         hash = update(hash, entry);

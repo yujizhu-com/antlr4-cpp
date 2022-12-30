@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -67,7 +67,7 @@ namespace {
     /// <param name="addEOF"> Add <seealso cref="Token#EOF"/> to the result if the end of the
     /// outermost context is reached. This parameter has no effect if {@code ctx}
     /// is {@code null}. </param>
-    void LOOK(ATNState *s, ATNState *stopState, Ref<const PredictionContext> const& ctx) {
+    void LOOK(ATNState *s, ATNState *stopState, CppRef<const PredictionContext> const& ctx) {
       if (!_lookBusy.insert(ATNConfig(s, 0, ctx)).second) {
         return;
       }
@@ -117,7 +117,7 @@ namespace {
             continue;
           }
 
-          Ref<const PredictionContext> newContext = SingletonPredictionContext::create(ctx, (static_cast<const RuleTransition*>(t))->followState->stateNumber);
+          CppRef<const PredictionContext> newContext = SingletonPredictionContext::create(ctx, (static_cast<const RuleTransition*>(t))->followState->stateNumber);
 
           _calledRuleStack.set((static_cast<const RuleTransition*>(t))->target->ruleIndex);
           LOOK(t->target, stopState, newContext);
@@ -181,7 +181,7 @@ misc::IntervalSet LL1Analyzer::LOOK(ATNState *s, RuleContext *ctx) const {
 }
 
 misc::IntervalSet LL1Analyzer::LOOK(ATNState *s, ATNState *stopState, RuleContext *ctx) const {
-  Ref<const PredictionContext> lookContext = ctx != nullptr ? PredictionContext::fromRuleContext(_atn, ctx) : nullptr;
+  CppRef<const PredictionContext> lookContext = ctx != nullptr ? PredictionContext::fromRuleContext(_atn, ctx) : nullptr;
   misc::IntervalSet r;
   LL1AnalyzerImpl impl(_atn, r, true, true);
   impl.LOOK(s, stopState, lookContext);
